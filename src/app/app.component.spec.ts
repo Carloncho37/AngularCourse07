@@ -25,3 +25,5 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('.content span')?.textContent).toContain('gifs-app app is running!');
   });
 });
+
+
