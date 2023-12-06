@@ -10,7 +10,9 @@ export class GifsService {
   private serviceUrl = 'http://api.giphy.com/v1/gifs'
   public gifsList: Gif[] = [];
 
-  constructor ( private http: HttpClient) {};
+  constructor ( private http: HttpClient) {
+  this.loadLocalStorage();
+  }
 
 get tagsHistory() {
   return [...this._tagsHistory];
@@ -34,19 +36,28 @@ private SaveLocalStorage():void {
   localStorage.setItem( 'history', JSON.stringify( this._tagsHistory) )
 }
 
+// Metodo para leer desde el local storage
+private loadLocalStorage(){
+  if (!localStorage.getItem('history')) return;
+  this._tagsHistory = JSON.parse(localStorage.getItem('history')! );
+
+  if (this._tagsHistory.length ===0 ) return;
+  this.searchTag(this._tagsHistory[0])
+
+}
 
 // Metodo para buscar
 public searchTag ( tag: string ) : void {
   if (tag.length === 0) return;
   this.organizeHistory(tag);
 
-  // defino los parametros del get
+  // Defino los parametros del metodo GET
   const params = new HttpParams()
     .set('api_key', this.ghipyApiKey)
     .set('limit','10')
     .set('q', tag)
 
-  // Invoco al metodo get
+  // Invoco al metodo GET a traves de observers
   this.http.get<SearchResponse>(`${this.serviceUrl}/search`, { params })
     .subscribe( resp => {
       this.gifsList = resp.data;
