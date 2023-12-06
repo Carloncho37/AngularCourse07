@@ -1,13 +1,18 @@
 <!-- Card-List -->
 <div class="row">
-  <div class=" col-md-3 col-sm-6">
+  <div *ngFor="let gif of gifs" class=" col-md-3 col-sm-6">
     <div class="card mb-2 text-center bg-dark">
 
-      <!-- TODO: CREAR IMAGEN -->
+        <img 
+          [src]="gif.images.downsized_medium.url"
+          [alt]="gif.title"
+          class="card-img-top"
+        
+        >
 
       <div class="card-body text-white">
         <p class="card-text">
-          Buscar Gifs
+          {{ gif.title }}
         </p>
 
       </div>
@@ -17,13 +22,3 @@
 
   </div>
 </div>
-
-
-
-
-<ul>
-  <li>Primero</li>
-  <li>Segundo</li>
-  <li>Tercero</li>
-  <li>Cuarto</li>
-</ul>
