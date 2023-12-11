@@ -14,9 +14,11 @@ export class GifsService {
   this.loadLocalStorage();
   }
 
+  
 get tagsHistory() {
   return [...this._tagsHistory];
 }
+
 
 // Metodo para organizar la grilla del historial de busqueda de Gifs
 private organizeHistory (tag: string){
@@ -29,7 +31,6 @@ private organizeHistory (tag: string){
   this._tagsHistory = this._tagsHistory.splice(0,10);
   this.SaveLocalStorage();
 }
-
 
 // Metodo para almacenar en LocalStorage
 private SaveLocalStorage():void {
